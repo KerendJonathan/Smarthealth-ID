@@ -117,10 +117,14 @@ android {
             crunchPngs (findProperty('android.enablePngCrunchInReleaseBuilds')?.toBoolean() ?: true)
         }
     }
-    packagingOptions {
+     packagingOptions {
         jniLibs {
             useLegacyPackaging (findProperty('expo.useLegacyPackaging')?.toBoolean() ?: false)
         }
+        pickFirst "mipmap-*/ic_launcher.png"
+        pickFirst "mipmap-*/ic_launcher_foreground.png"
+        pickFirst "mipmap-*/ic_launcher.webp"
+        pickFirst "mipmap-*/ic_launcher_foreground.webp"
     }
     androidResources {
         ignoreAssetsPattern '!.svn:!.git:!.ds_store:!*.scc:!CVS:!thumbs.db:!picasa.ini:!*~'
