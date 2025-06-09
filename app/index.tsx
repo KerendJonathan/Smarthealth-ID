@@ -14,13 +14,16 @@ import {
   Poppins_500Medium,
   Poppins_600SemiBold,
 } from '@expo-google-fonts/poppins';
-import { SplashScreen } from 'expo-router';
+// Import your custom splash screen image
+const splashImage = require('../assets/images/splash.png'); //SplashScreen
+
 import { useEffect } from 'react';
 
-import { HomeHeader } from '@/components/HomeHeader';
-import { MainBanner } from '@/components/MainBanner';
-import { MenuGrid } from '@/components/MenuGrid';
-import { AdditionalContent } from '@/components/AdditionalContent';
+import { HomeHeader } from '../components/HomeHeader';
+import { MainBanner } from '../components/MainBanner';
+import { MenuGrid } from '../components/MenuGrid';
+import { AdditionalContent } from '../components/AdditionalContent';
+import { SplashScreen } from 'expo-router';
 
 export default function HomeScreen() {
   const [fontsLoaded, fontError] = useFonts({
@@ -36,9 +39,17 @@ export default function HomeScreen() {
     }
   }, [fontsLoaded, fontError]);
 
-  // Return null to keep splash screen visible while fonts load
+  /// Show custom splash screen while fonts load
   if (!fontsLoaded && !fontError) {
-    return null;
+    return (
+      <View style={styles.splashContainer}>
+        <Image
+          source={splashImage}
+          style={styles.splashImage}
+          resizeMode="cover"
+        />
+      </View>
+    );
   }
 
   return (
@@ -83,5 +94,15 @@ const styles = StyleSheet.create({
   },
   spacer: {
     height: 40,
+  },
+  splashContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+  },
+  splashImage: {
+    width: '100%',
+    height: '100%',
   },
 });

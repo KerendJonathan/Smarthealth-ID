@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useFrameworkReady } from '@/hooks/useFrameworkReady';
-import { BottomNavigation } from '@/components/BottomNavigation';
+import { BottomNavigation } from '../components/BottomNavigation';
 
 export default function RootLayout() {
   useFrameworkReady();
