@@ -1,15 +1,24 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Dimensions,
+} from 'react-native';
 import { Chrome as Home, Grid2x2 as Grid, User } from 'lucide-react-native';
 import { useRouter, usePathname } from 'expo-router';
-import Animated, { useAnimatedStyle, withTiming } from 'react-native-reanimated';
+import Animated, {
+  useAnimatedStyle,
+  withTiming,
+} from 'react-native-reanimated';
 
 const { width } = Dimensions.get('window');
 
 export function BottomNavigation() {
   const router = useRouter();
   const pathname = usePathname();
-  
+
   // Determine active tab based on current pathname
   const getActiveTab = () => {
     if (pathname === '/' || pathname === '/index') return 'home';
@@ -17,26 +26,41 @@ export function BottomNavigation() {
     if (pathname.includes('/profile')) return 'profile';
     return 'home';
   };
-  
+
   const activeTab = getActiveTab();
-  
+
   return (
     <View style={styles.container}>
       <View style={styles.navigationBar}>
-        <TabButton 
-          icon={<Home size={24} color={activeTab === 'home' ? '#2BB8C9' : '#9CA3AF'} />} 
+        <TabButton
+          icon={
+            <Home
+              size={24}
+              color={activeTab === 'home' ? '#2BB8C9' : '#9CA3AF'}
+            />
+          }
           label="Beranda"
           isActive={activeTab === 'home'}
           onPress={() => router.push('/')}
         />
-        <TabButton 
-          icon={<Grid size={24} color={activeTab === 'features' ? '#2BB8C9' : '#9CA3AF'} />} 
+        <TabButton
+          icon={
+            <Grid
+              size={24}
+              color={activeTab === 'features' ? '#2BB8C9' : '#9CA3AF'}
+            />
+          }
           label="Fitur"
           isActive={activeTab === 'features'}
           onPress={() => router.push('/features')}
         />
-        <TabButton 
-          icon={<User size={24} color={activeTab === 'profile' ? '#2BB8C9' : '#9CA3AF'} />} 
+        <TabButton
+          icon={
+            <User
+              size={24}
+              color={activeTab === 'profile' ? '#2BB8C9' : '#9CA3AF'}
+            />
+          }
           label="Profil"
           isActive={activeTab === 'profile'}
           onPress={() => router.push('/profile')}
@@ -56,22 +80,32 @@ type TabButtonProps = {
 function TabButton({ icon, label, isActive, onPress }: TabButtonProps) {
   const animatedStyle = useAnimatedStyle(() => {
     return {
-      transform: [{ 
-        translateY: withTiming(isActive ? -8 : 0, { duration: 200 }) 
-      }],
+      transform: [
+        {
+          translateY: withTiming(isActive ? -8 : 0, { duration: 200 }),
+        },
+      ],
     };
   });
 
   return (
-    <TouchableOpacity 
-      style={styles.tabButton} 
+    <TouchableOpacity
+      style={styles.tabButton}
       activeOpacity={0.7}
       onPress={onPress}
     >
-      <Animated.View style={[styles.iconContainer, animatedStyle, isActive && styles.activeIconContainer]}>
+      <Animated.View
+        style={[
+          styles.iconContainer,
+          animatedStyle,
+          isActive && styles.activeIconContainer,
+        ]}
+      >
         {icon}
       </Animated.View>
-      <Text style={[styles.tabLabel, isActive && styles.activeTabLabel]}>{label}</Text>
+      <Text style={[styles.tabLabel, isActive && styles.activeTabLabel]}>
+        {label}
+      </Text>
     </TouchableOpacity>
   );
 }
